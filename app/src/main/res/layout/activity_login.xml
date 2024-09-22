@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login_page.LoginActivity">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_180sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_white" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:lineHeight="@dimen/_40sdp"
+        android:fontFamily="@font/gotham_bold"
+        android:text="Millions of songs\nFree on Spotify."
+        android:textColor="@color/white"
+        android:textSize="@dimen/_32sdp"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/singUpButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_36sdp"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Sing Up Free"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_17sdp"
+        android:layout_marginEnd="@dimen/_17sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/phoneButton"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:drawableLeft="@drawable/phone_iphone_24dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Continue with phone number"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="@+id/singUpButton"
+        app:layout_constraintStart_toStartOf="@+id/singUpButton"
+        app:layout_constraintTop_toBottomOf="@+id/singUpButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/googleButton"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/google"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Continue with Google"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="@+id/singUpButton"
+        app:layout_constraintStart_toStartOf="@+id/singUpButton"
+        app:layout_constraintTop_toBottomOf="@+id/phoneButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/facebookButton"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/facebook"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Continue with facebook"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="@+id/singUpButton"
+        app:layout_constraintStart_toStartOf="@+id/singUpButton"
+        app:layout_constraintTop_toBottomOf="@+id/googleButton" />
+
+    <TextView
+        android:id="@+id/log_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Log in"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="@dimen/_21sdp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/facebookButton"
+        app:layout_constraintStart_toStartOf="@+id/facebookButton"
+        app:layout_constraintTop_toBottomOf="@+id/facebookButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>
