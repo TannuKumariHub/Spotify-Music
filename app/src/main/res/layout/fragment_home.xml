@@ -70,48 +70,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/appBarLayout"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+    <!--
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/gotham_bold"
+            android:text="Trending now"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_25sdp"
+            app:layout_constraintStart_toStartOf="@+id/recyclerMadeForYou"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerMadeForYou" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:fontFamily="@font/gotham_bold"
-        android:text="Trending now"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_25sdp"
-        app:layout_constraintStart_toStartOf="@+id/recyclerMadeForYou"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerMadeForYou" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTrendingNow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTrendingNow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:scrollbars="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/gotham_bold"
+            android:text="Tops picks for you"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_25sdp"
+            app:layout_constraintStart_toStartOf="@+id/recyclerTrendingNow"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerTrendingNow" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:fontFamily="@font/gotham_bold"
-        android:text="Tops picks for you"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_25sdp"
-        app:layout_constraintStart_toStartOf="@+id/recyclerTrendingNow"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerTrendingNow" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerTopsPicksForYou"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTopsPicksForYou"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
