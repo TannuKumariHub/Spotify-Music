@@ -29,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
 
+
         // Disable icon tinting and item active indicator if not needed
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.isItemActiveIndicatorEnabled = false

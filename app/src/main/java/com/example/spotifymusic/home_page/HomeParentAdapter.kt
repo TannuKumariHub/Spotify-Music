@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.spotifymusic.databinding.HomeChildItemBinding
 import com.example.spotifymusic.databinding.HomeParentItemBinding
 
-class HomeParentAdapter(val ParentList:List<HomeParentDataClass>) : RecyclerView.Adapter<HomeParentAdapter.ViewHolder>() {
+class HomeParentAdapter(val ParentList: List<HomeParentDataClass?>) : RecyclerView.Adapter<HomeParentAdapter.ViewHolder>() {
     class ViewHolder(val binding: HomeParentItemBinding):RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -23,10 +22,14 @@ class HomeParentAdapter(val ParentList:List<HomeParentDataClass>) : RecyclerView
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem=ParentList[position]
-        holder.binding.homeParentTxt.text=currentItem.txt
+        if (currentItem != null) {
+            holder.binding.homeParentTxt.text=currentItem.txt
+        }
         holder.binding.recyclerTrendingNow.layoutManager = LinearLayoutManager(holder.binding.homeParentTxt.context, LinearLayoutManager.HORIZONTAL, false)
 
         // Here we use the ChildAdapter to populate the child RecyclerView
-        holder.binding.recyclerTrendingNow.adapter = HomeChildAdapter(currentItem.childitem)
+        if (currentItem != null) {
+            holder.binding.recyclerTrendingNow.adapter = HomeChildAdapter(currentItem.childitem)
+        }
     }
 }

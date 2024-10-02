@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spotifymusic.databinding.HomeChildItemBinding
 
-class HomeChildAdapter (val ChildList:List<HomeChildDataClass>): RecyclerView.Adapter<HomeChildAdapter.ViewHolder>() {
+class HomeChildAdapter (private val ChildList:List<HomeChildDataClass>): RecyclerView.Adapter<HomeChildAdapter.ViewHolder>() {
     class ViewHolder(val binding:HomeChildItemBinding):RecyclerView.ViewHolder(binding.root) {
 
     }

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.spotifymusic"
+    namespace = "com.example.spotifymusic" //package name and application id your project
     compileSdk = 34
 
     defaultConfig {
@@ -35,7 +35,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding=true
+        viewBinding = true
     }
 }
 
@@ -51,6 +51,20 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //sdp library
-    implementation (libs.sdp.android)
+    implementation(libs.sdp.android)
+
+    implementation("com.spotify.android:auth:1.2.5") // Maven dependency
+
+    // All other dependencies for your app should also be here:
+    implementation("androidx.browser:browser:1.0.0")
+
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+
+    //json converter
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    //glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 }
