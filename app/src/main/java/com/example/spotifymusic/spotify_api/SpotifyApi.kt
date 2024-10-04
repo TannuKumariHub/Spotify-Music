@@ -5,12 +5,12 @@ import UserProfile
 import com.example.spotifymusic.home_page.CategoryItem
 import com.example.spotifymusic.home_page.CategoryMadeForYouDataClass
 import com.example.spotifymusic.home_page.CategoryMadeForYouItem
+import com.example.spotifymusic.playlistscreen.PlayListDataClassTrack
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.util.Locale.Category
 
 interface SpotifyApi {
     @GET("me")
@@ -33,4 +33,11 @@ interface SpotifyApi {
         @Path("category_id") categoryId: String,
         @Header("Authorization") authToken: String
     ): Call<CategoryMadeForYouDataClass>
+
+    @GET("playlists/{playlist_id}/tracks")
+    fun getPlaylistTracks(
+        @Path("playlist_id") playlistId: String,
+        @Header("Authorization") authorization: String
+    ): Call<PlayListDataClassTrack>
+
 }

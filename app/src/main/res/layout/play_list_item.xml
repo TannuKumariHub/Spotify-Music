@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
             android:id="@+id/playListItemImg"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
@@ -37,7 +38,8 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/gotham_medium"
             android:text="LYRICS"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
+            android:background="@drawable/playlist_lyricsitem_background"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintStart_toEndOf="@+id/playListItemImg"
             app:layout_constraintTop_toBottomOf="@+id/playListItemTitle" />

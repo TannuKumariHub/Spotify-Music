@@ -3,9 +3,13 @@ package com.example.spotifymusic.playlistscreen
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.spotifymusic.databinding.PlayListItemBinding
 
-class PlayListAdapter(val PlayList: List<PlayListDataClass>) :
+class PlayListAdapter(
+    val PlayList: List<PlayListDataClassTrack.Item.Track>,
+    val onPLayListItemClick: (PlayListDataClassTrack.Item.Track,Int) -> Unit
+) :
     RecyclerView.Adapter<PlayListAdapter.ViewHolder>() {
     class ViewHolder(val binding: PlayListItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -24,9 +28,16 @@ class PlayListAdapter(val PlayList: List<PlayListDataClass>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItemPosition = PlayList[position]
-        holder.binding.playListItemImg.setImageResource(currentItemPosition.img)
-        holder.binding.playListItemTitle.text = currentItemPosition.headertxt
-        holder.binding.playListItemSingerName.text = currentItemPosition.nametxt
-        holder.binding.playListItemMore.setImageResource(currentItemPosition.threedot)
+
+
+        Glide.with(holder.binding.root)
+            .load(currentItemPosition.album.images[0].url)
+            .into(holder.binding.playListItemImg)
+        holder.itemView.setOnClickListener {
+            onPLayListItemClick(currentItemPosition,position)
+        }
+        holder.binding.playListItemTitle.text = currentItemPosition.name
+        holder.binding.playListItemSingerName.text = currentItemPosition.artists[0].name
+//        holder.binding.playListItemMore.setImageResource(currentItemPosition.threedot)
     }
 }

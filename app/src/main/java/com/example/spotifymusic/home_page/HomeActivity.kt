@@ -52,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
                     loadFragment(SearchFragment())
                     true
                 }
-                R.id.yourLibrary -> {   // Assuming you have a LibraryFragment
+                R.id.yourLibrary -> {
                     loadFragment(PlayListFragment())
                     true
                 }

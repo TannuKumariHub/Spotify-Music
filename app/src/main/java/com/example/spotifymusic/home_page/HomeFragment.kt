@@ -1,6 +1,5 @@
 package com.example.spotifymusic.home_page
 
-
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -13,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.spotifymusic.R
 import com.example.spotifymusic.databinding.FragmentHomeBinding
+import com.example.spotifymusic.playlistscreen.PlayListFragment
 import com.example.spotifymusic.spotify_api.SpotifyApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,16 +45,24 @@ class HomeFragment : Fragment() {
         }
 
         val authorizationHeader = "Bearer $accessToken"
-        Log.d("eeeeeeeeee", "onViewCreated: $authorizationHeader")
+
+        // Set up the parent RecyclerView
+        binding.recyclerMadeForYou.layoutManager = LinearLayoutManager(requireContext())
+        val parentItems = mutableListOf<HomeParentDataClass>()
+
+        fetchCategoryPlaylists("0JQ5DAt0tbjZptfcdMSKl3", "Made For You", parentItems, authorizationHeader)
+        fetchCategoryPlaylists("0JQ5DAqbMKFQIL0AXnG5AK", "Trending Now", parentItems, authorizationHeader)
+    }
+
+    // Function to fetch playlists and update the parent item list
+    private fun fetchCategoryPlaylists(categoryId: String, categoryName: String, parentItems: MutableList<HomeParentDataClass>, authorizationHeader: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.spotify.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(SpotifyApi::class.java)
 
-        val categoryItem_Id = "0JQ5DAt0tbjZptfcdMSKl3"
-
-        retrofit.getPlaylistsByCategory(categoryItem_Id,authorizationHeader)
+        retrofit.getPlaylistsByCategory(categoryId, authorizationHeader)
             .enqueue(object : Callback<CategoryMadeForYouDataClass?> {
                 override fun onResponse(
                     call: Call<CategoryMadeForYouDataClass?>,
@@ -67,23 +75,45 @@ class HomeFragment : Fragment() {
                         if (playlists.isNotEmpty()) {
                             val childItems = playlists.map { playlist ->
                                 HomeChildDataClass(
-                                    playlist.name ,
-                                    R.drawable.tanu
+                                    playlist.name,
+                                    playlist.images.map { it.url },
+                                    playlist.id
+
                                 )
                             }
+                            parentItems.add(HomeParentDataClass(categoryName, childItems))
 
-                            val parentItems = listOf(
-                                HomeParentDataClass(
-                                    "Made For You",  // Label for the parent item
-                                    childItems
-                                )
+                            val parentAdapter = HomeParentAdapter(parentItems,
+                                onHomeParentItemClick = { parentItem ->
+                                    Toast.makeText(requireContext(), "Clicked on Parent: ${parentItem.txt}", Toast.LENGTH_SHORT).show()
+                                },
+                                onHomeChildItemClick = { childItem ->
+                                    // Get the playlist id from the child item
+                                    val playlistId = childItem.id
+
+                                    // Create a new instance of PlayListFragment and pass the ID
+                                    val playListFragment = PlayListFragment().apply {
+                                        arguments = Bundle().apply {
+                                            putString("PLAYLIST_ID", playlistId)
+                                        }
+                                    }
+
+                                    // Perform fragment transaction to replace the current fragment with PlayListFragment
+                                    parentFragmentManager.beginTransaction()
+                                        .replace(R.id.fragment_container, playListFragment)
+                                        .addToBackStack(null) // Optional: Add to back stack to allow navigating back
+                                        .commit()
+
+                                    Log.d("TAG", "Navigating to PlayListFragment with playlistId: $playlistId")
+                                }
                             )
 
-                            binding.recyclerMadeForYou.layoutManager = LinearLayoutManager(requireContext())
-                            binding.recyclerMadeForYou.adapter = HomeParentAdapter(parentItems)
+
+
+                            binding.recyclerMadeForYou.adapter = parentAdapter
                         } else {
-                            Toast.makeText(requireContext(), "No playlists found", Toast.LENGTH_SHORT).show()
-                            Log.e("HomeFragment", "No playlists found")
+                            Toast.makeText(requireContext(), "No playlists found in $categoryName", Toast.LENGTH_SHORT).show()
+                            Log.e("HomeFragment", "No playlists found in $categoryName")
                         }
                     } else {
                         Log.e("HomeFragment", "Failed to fetch category: ${response.code()} - ${response.errorBody()?.string()}")
