@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_marginTop="@dimen/_5sdp"
     android:backgroundTint="@color/black"
@@ -24,8 +25,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:ellipsize="end"
             android:fontFamily="@font/gotham_medium"
             android:text="Alone"
+            android:maxLines="1"
+            android:maxWidth="@dimen/_100sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_20sdp"
             app:layout_constraintStart_toEndOf="@+id/playListItemImg"
@@ -51,19 +55,21 @@
             android:layout_marginStart="@dimen/_5sdp"
             android:fontFamily="@font/gotham_medium"
             android:text="ekjnekjgb"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:width="@dimen/_100sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintStart_toEndOf="@+id/textView16"
             app:layout_constraintTop_toBottomOf="@+id/playListItemTitle" />
 
         <ImageView
-            android:id="@+id/playListItemMore"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginStart="124dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/more_vert_24dp"
-            app:layout_constraintStart_toEndOf="@+id/playListItemSingerName"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 

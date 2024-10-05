@@ -19,6 +19,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -35,6 +38,20 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*   val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss z", Locale.getDefault())
+           val currentDateAndTime = sdf.format(Date())*/
+
+        val hour = SimpleDateFormat("HH", Locale.getDefault()).format(Date()).toInt()
+
+        if (hour == 12) {
+            binding.txtGreeting.text = "Good Afternoon"
+        } else if (hour < 12) {
+            binding.txtGreeting.text = "Good Morning"
+        } else {
+            binding.txtGreeting.text = "Good Evening"
+        }
+
+
 
         sharedPreferences = activity?.getSharedPreferences("SpotifyShared", Context.MODE_PRIVATE)!!
         val accessToken = sharedPreferences.getString("TOKEN_STORED", null)
@@ -50,12 +67,27 @@ class HomeFragment : Fragment() {
         binding.recyclerMadeForYou.layoutManager = LinearLayoutManager(requireContext())
         val parentItems = mutableListOf<HomeParentDataClass>()
 
-        fetchCategoryPlaylists("0JQ5DAt0tbjZptfcdMSKl3", "Made For You", parentItems, authorizationHeader)
-        fetchCategoryPlaylists("0JQ5DAqbMKFQIL0AXnG5AK", "Trending Now", parentItems, authorizationHeader)
+        fetchCategoryPlaylists(
+            "0JQ5DAt0tbjZptfcdMSKl3",
+            "Made For You",
+            parentItems,
+            authorizationHeader
+        )
+        fetchCategoryPlaylists(
+            "0JQ5DAqbMKFQIL0AXnG5AK",
+            "Trending Now",
+            parentItems,
+            authorizationHeader
+        )
     }
 
     // Function to fetch playlists and update the parent item list
-    private fun fetchCategoryPlaylists(categoryId: String, categoryName: String, parentItems: MutableList<HomeParentDataClass>, authorizationHeader: String) {
+    private fun fetchCategoryPlaylists(
+        categoryId: String,
+        categoryName: String,
+        parentItems: MutableList<HomeParentDataClass>,
+        authorizationHeader: String
+    ) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.spotify.com/v1/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -85,16 +117,24 @@ class HomeFragment : Fragment() {
 
                             val parentAdapter = HomeParentAdapter(parentItems,
                                 onHomeParentItemClick = { parentItem ->
-                                    Toast.makeText(requireContext(), "Clicked on Parent: ${parentItem.txt}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Clicked on Parent: ${parentItem.txt}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 },
                                 onHomeChildItemClick = { childItem ->
-                                    // Get the playlist id from the child item
                                     val playlistId = childItem.id
+                                    val imageUrl = if (childItem.img.isNotEmpty()) childItem.img[0] else null
+                                    val txt = childItem.txt
+                                    Log.d("oo", "maya: $imageUrl")
 
                                     // Create a new instance of PlayListFragment and pass the ID
                                     val playListFragment = PlayListFragment().apply {
                                         arguments = Bundle().apply {
                                             putString("PLAYLIST_ID", playlistId)
+                                            putString("PLAYLIST_IMAGE", imageUrl) // Key should be consistent
+                                            putString("TEXT", txt)
                                         }
                                     }
 
@@ -112,18 +152,35 @@ class HomeFragment : Fragment() {
 
                             binding.recyclerMadeForYou.adapter = parentAdapter
                         } else {
-                            Toast.makeText(requireContext(), "No playlists found in $categoryName", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "No playlists found in $categoryName",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             Log.e("HomeFragment", "No playlists found in $categoryName")
                         }
                     } else {
-                        Log.e("HomeFragment", "Failed to fetch category: ${response.code()} - ${response.errorBody()?.string()}")
-                        Toast.makeText(requireContext(), "Error fetching playlists: ${response.errorBody()?.string()}", Toast.LENGTH_SHORT).show()
+                        Log.e(
+                            "HomeFragment",
+                            "Failed to fetch category: ${response.code()} - ${
+                                response.errorBody()?.string()
+                            }"
+                        )
+                        Toast.makeText(
+                            requireContext(),
+                            "Error fetching playlists: ${response.errorBody()?.string()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<CategoryMadeForYouDataClass?>, t: Throwable) {
                     Log.e("HomeFragment", "API call failed: ${t.localizedMessage}")
-                    Toast.makeText(requireContext(), "API call failed: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "API call failed: ${t.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
     }

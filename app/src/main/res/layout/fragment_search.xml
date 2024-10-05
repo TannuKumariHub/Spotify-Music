@@ -58,10 +58,14 @@
         android:id="@+id/recyclerViewYourTopGenres"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:listitem="@layout/search_child_item"
+        tools:itemCount="6"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        android:background="@color/white"
         android:layout_marginStart="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_14sdp"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 

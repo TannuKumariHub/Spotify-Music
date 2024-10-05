@@ -2,6 +2,7 @@ package com.example.spotifymusic.searchpage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spotifymusic.databinding.HomeParentItemBinding
@@ -9,27 +10,31 @@ import com.example.spotifymusic.databinding.SearchParentItemBinding
 import com.example.spotifymusic.home_page.HomeChildAdapter
 import com.example.spotifymusic.home_page.HomeParentDataClass
 
-class SearchParentAdapter(val searchList: List<SearchParentDataClass>):
+class SearchParentAdapter(val searchList: List<SearchParentDataClass>) :
     RecyclerView.Adapter<SearchParentAdapter.ViewHolder>() {
-    class ViewHolder (val binding: SearchParentItemBinding):RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(val binding: SearchParentItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding=SearchParentItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            SearchParentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-return searchList.size
+        return searchList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentItem=searchList[position]
+        val currentItem = searchList[position]
         if (currentItem != null) {
-            holder.binding.searchParentTxt.text=currentItem.txt
+            holder.binding.searchParentTxt.text = currentItem.txt
         }
-        holder.binding.recyclerViewBrowse.layoutManager = LinearLayoutManager(holder.binding.searchParentTxt.context, LinearLayoutManager.HORIZONTAL, false)
+        holder.binding.recyclerViewBrowse.layoutManager = GridLayoutManager(
+            holder.binding.searchParentTxt.context,
+            2
+        )
 
         // Here we use the ChildAdapter to populate the child RecyclerView
         if (currentItem != null) {

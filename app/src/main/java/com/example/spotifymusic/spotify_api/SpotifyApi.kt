@@ -5,6 +5,7 @@ import UserProfile
 import com.example.spotifymusic.home_page.CategoryItem
 import com.example.spotifymusic.home_page.CategoryMadeForYouDataClass
 import com.example.spotifymusic.home_page.CategoryMadeForYouItem
+import com.example.spotifymusic.musicplayerscreen.TrackDataClass
 import com.example.spotifymusic.playlistscreen.PlayListDataClassTrack
 import retrofit2.Call
 import retrofit2.http.GET
@@ -39,5 +40,11 @@ interface SpotifyApi {
         @Path("playlist_id") playlistId: String,
         @Header("Authorization") authorization: String
     ): Call<PlayListDataClassTrack>
+
+    @GET("tracks/{id}")
+    fun getTrack(
+        @Header("Authorization") authToken: String,
+        @Path("id") trackId: String
+    ): Call<TrackDataClass>
 
 }

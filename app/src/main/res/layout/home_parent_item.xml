@@ -2,15 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
- >
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/homeParentTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-android:layout_marginTop="@dimen/_10sdp"
-
+        android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/gotham_bold"
         android:text="Trending now"
         android:textColor="@color/white"
@@ -22,8 +21,12 @@ android:layout_marginTop="@dimen/_10sdp"
         android:id="@+id/recyclerTrendingNow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        tools:listitem="@layout/play_list_item"
+        tools:itemCount="3"
         android:layout_marginTop="@dimen/_12sdp"
         android:scrollbars="horizontal"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/homeParentTxt"
         app:layout_constraintTop_toBottomOf="@+id/homeParentTxt" />

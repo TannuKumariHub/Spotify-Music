@@ -52,7 +52,6 @@ class SearchFragment : Fragment() {
             .build()
             .create(SpotifyApi::class.java)
 
-/*
         retrofit.getCategories(authorizationHeader, "en_IN").enqueue(object : Callback<CategoryItem?> {
             override fun onResponse(call: Call<CategoryItem?>, response: Response<CategoryItem?>) {
                 if (response.isSuccessful) {
@@ -77,8 +76,9 @@ class SearchFragment : Fragment() {
                         )
 
                         // Setup RecyclerView
-                        binding.recyclerViewYourTopGenres.layoutManager = GridLayoutManager(requireContext(),2)
+                        binding.recyclerViewYourTopGenres.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                         binding.recyclerViewYourTopGenres.adapter = SearchParentAdapter(parentItems)
+
                     }
                 } else {
                     Toast.makeText(requireContext(), "Failed to load categories", Toast.LENGTH_SHORT).show()
@@ -91,7 +91,6 @@ class SearchFragment : Fragment() {
                 Log.e("SearchFragment", "API call failed: ${t.localizedMessage}")
             }
         })
-*/
     }
 
     override fun onDestroyView() {
