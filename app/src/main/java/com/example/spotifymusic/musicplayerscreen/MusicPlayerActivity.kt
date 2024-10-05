@@ -93,6 +93,30 @@ class MusicPlayerActivity : AppCompatActivity() {
 
 
         if (id != null) {
+            retrofit.getTracks(authorizationHeader,id).enqueue(object : Callback<TracksSeveral?> {
+                override fun onResponse(p0: Call<TracksSeveral?>, p1: Response<TracksSeveral?>) {
+                    val data=p1.body()
+                    val song= data?.tracks?.get(0)?.preview_url
+                    mediaPlayer = MediaPlayer().apply {
+                        setAudioStreamType(AudioManager.STREAM_MUSIC)
+                        try {
+                            setDataSource(song)
+                            prepare()
+                            start()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+
+                }
+
+                override fun onFailure(p0: Call<TracksSeveral?>, p1: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+/*
+        if (id != null) {
             retrofit.getTrack(authorizationHeader, id).enqueue(object : Callback<TrackDataClass?> {
                 override fun onResponse(
                     p0: Call<TrackDataClass?>,
@@ -103,21 +127,25 @@ class MusicPlayerActivity : AppCompatActivity() {
 
                     val song = data?.external_urls.toString()
                     Log.d("ww", "onResponse: $song")
-                     mediaPlayer = MediaPlayer().apply {
-                         setAudioStreamType(AudioManager.STREAM_MUSIC)
-                         try {
-                             setDataSource("https://p.scdn.co/mp3-preview/e51909671a0fe649449a15a87cd89f3c0e1f49a0?cid=cfe923b2d660439caf2b557b21f31221")
-                             prepare()
-                             start()
-                         }catch (e:Exception){
-                            e.printStackTrace()
-                         }
-                         Toast.makeText(this@MusicPlayerActivity, "audio start", Toast.LENGTH_SHORT).show()
 
-                        /* prepareAsync()  // Prepares the player asynchronously (important for streaming)
+//                    playSongFromUrl(song)
+
+                                         mediaPlayer = MediaPlayer().apply {
+                                             setAudioStreamType(AudioManager.STREAM_MUSIC)
+                                             try {
+                                                 setDataSource("")
+                                                 prepare()
+                                                 start()
+                                             }catch (e:Exception){
+                                                e.printStackTrace()
+                                             }
+                                             Toast.makeText(this@MusicPlayerActivity, "audio start", Toast.LENGTH_SHORT).show()
+
+ prepareAsync()  // Prepares the player asynchronously (important for streaming)
                          setOnPreparedListener {
                              it.start()  // Start playing once the MediaPlayer is prepared
-                         }*/
+                         }
+
                      }
 
 
@@ -128,6 +156,23 @@ class MusicPlayerActivity : AppCompatActivity() {
                 }
             })
         }
+*/
 
     }
+
+    /*    private fun playSongFromUrl(url: String) {
+            mediaPlayer = MediaPlayer().apply {
+                setAudioStreamType(AudioManager.STREAM_MUSIC)
+                try {
+                    setDataSource(url)  // URL must point to a valid MP3 stream
+                    prepareAsync()
+                    setOnPreparedListener {
+                        start()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this@MusicPlayerActivity, "Failed to play song", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }*/
 }
